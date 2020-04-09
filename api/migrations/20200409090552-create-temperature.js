@@ -1,18 +1,14 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('winds', {
+    return queryInterface.createTable('temperatures', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      wind: {
-        type: Sequelize.STRING
-      },
-      zone:
-      {
+      temperature: {
         type: Sequelize.STRING
       },
       deviceID: {
@@ -29,6 +25,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('winds');
+    return queryInterface.dropTable('temperatures');
   }
 };

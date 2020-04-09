@@ -1,32 +1,35 @@
-var request = require('request');
+
 var Device = require("../../models").device
 var Temperature = require("../../models").temperature
-var deviceExist = require("../utils")
-function fetchTemperature() {
-
-    request('http://52.14.112.188:3000/api/v1/temperature', async function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-            let jsonObj = JSON.parse(body);
-
-            for (var element in jsonObj.temperature) {
-                aobj = jsonObj.temperature[element];
-                let device = await deviceExist(aobj.id);
-                addOrReplaceTemperature(device, aobj['°C'], aobj.zone)
+var utils = require("../utils")
+const axios = require('axios');
 
 
-
-            }
-
+function  fetchTemperature() {
+    axios.get('http://52.14.112.188:3000/api/v1/temperature')
+    .then(async function (response) {
+        for (var element in response.data.temperature) {
+            aobj = response.data.temperature[element];
+            await addOrReplaceTemperature(await utils.deviceExist(aobj.id, aobj.zone), aobj['°C'])
         }
     })
+    .catch(function (error) {
+        // handle error
+        console.log(error);
+    })
+    .finally(function () {
+        // always executed
+    });
+
 }
 
-async function addOrReplaceTemperature(device, temperature, zone) {
+async function addOrReplaceTemperature(device, temperature) {
     let tempObj = await Temperature.count({ where: { deviceID: device.id } });
     if (tempObj < 20) {
-        Temperature.create({ temperature: temperature, deviceID: device.id, zone: zone })
+        Temperature.create({ temperature: temperature, deviceID: device.id })
     }
-    else {
+    else 
+    {
         let oldRecord = await Temperature.findAll({
             limit: 1,
             where: {
@@ -36,7 +39,7 @@ async function addOrReplaceTemperature(device, temperature, zone) {
         })
 
 
-        Temperature.update({ temperature: temperature, zone : zone }, { where: { id: oldRecord[0].id } })
+        Temperature.update({ temperature: temperature }, { where: { id: oldRecord[0].id } })
     }
 }
 

@@ -1,30 +1,35 @@
-var request = require('request');
 var Device = require("../../models").device
 var Humidity = require("../../models").humidity
-var deviceExist = require("../utils")
+var utils = require("../utils")
+const axios = require('axios');
+
+
 function fetchHumidity() {
-
-    request('http://52.14.112.188:3000/api/v1/humidity', async function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-            let jsonObj = JSON.parse(body);
-
-            for (var element in jsonObj.humidity) {
-                aobj = jsonObj.humidity[element];
-                let device = await deviceExist(aobj.id);
-                addOrReplaceHumidity(device, aobj['%'], aobj.zone)
-
-
-
-            }
-
+    axios.get('http://52.14.112.188:3000/api/v1/humidity')
+    .then(async function (response) {
+        
+        for (var element in response.data.humidity) {
+            aobj = response.data.humidity[element];
+            let device = await utils.deviceExist(aobj.id, aobj.zone);
+            addOrReplaceHumidity(device, aobj['%'])
         }
+        
     })
+    .catch(function (error) {
+        // handle error
+        console.log(error);
+    })
+    .finally(function () {
+        // always executed
+    });
+
+   
 }
 
-async function addOrReplaceHumidity(device, humidity, zone) {
+async function addOrReplaceHumidity(device, humidity) {
     let tempObj = await Humidity.count({ where: { deviceID: device.id } });
     if (tempObj < 20) {
-        Humidity.create({ humidity: humidity, deviceID: device.id, zone: zone })
+        Humidity.create({ humidity: humidity, deviceID: device.id })
     }
     else {
         let oldRecord = await Humidity.findAll({
@@ -36,7 +41,7 @@ async function addOrReplaceHumidity(device, humidity, zone) {
         })
 
 
-        Humidity.update({ humidity: humidity, zone : zone }, { where: { id: oldRecord[0].id } })
+        Humidity.update({ humidity: humidity }, { where: { id: oldRecord[0].id } })
     }
 }
 

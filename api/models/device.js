@@ -5,7 +5,8 @@ module.exports = (sequelize, DataTypes) => {
     {
       type: DataTypes.STRING,
       unique: true
-    }
+    },
+    zone : DataTypes.STRING,
   }, {});
   device.associate = function(models) {
     // associations can be defined here

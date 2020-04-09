@@ -8,7 +8,6 @@ module.exports = (sequelize, DataTypes) => {
       
     },
     deviceID : DataTypes.STRING,
-    zone : DataTypes.STRING,
   }, {});
   wind.associate = function(models) {
     // associations can be defined here

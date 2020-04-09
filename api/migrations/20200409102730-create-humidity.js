@@ -11,10 +11,6 @@ module.exports = {
       humidity: {
         type: Sequelize.STRING
       },
-      zone:
-      {
-        type: Sequelize.STRING
-      },
       deviceID: {
         type : Sequelize.STRING
       },
