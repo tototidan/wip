@@ -7,6 +7,7 @@ var db = require("./models/index").sequelize
 var temperature = require("./src/fetchfunction/fetchTemperature")
 var wind = require("./src/fetchfunction/fetchWind")
 var humidity = require("./src/fetchfunction/fetchHumidity")
+var cors = require('cors');
 
 var indexRouter = require('./routes/index');
 
@@ -22,7 +23,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(cors());
 app.use('/', indexRouter);
 
 // catch 404 and forward to error handler
