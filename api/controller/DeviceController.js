@@ -88,9 +88,20 @@ async function getDeviceInfo(req,res)
         if(device)
         {
             let order = req.query.order == "DESC" ? req.query.order : "ASC";
-            let limit = Number.isInteger(req.query.limit) ? req.query.limit : 20
-            console.log(device)
+            let limits = parseInt(req.query.limit) ? parseInt(req.query.limit) : 20
+            let temp = Temperature.findAll({limit : limits, where : {deviceID : device.id}})
+            let humi = Humidity.findAll({limit : limits, where : {deviceID : device.id}})
+            let wind = Wind.findAll({limit : limits, where : {deviceID : device.id}})
+            res.json({wind : JSON.stringify(await wind), temperature : JSON.stringify(await temp), humidity : JSON.stringify(await humi)})
         }
+        else
+        {
+            res.json({error : "Cant find device"})
+        }
+    }
+    else
+    {
+        res.json({error : "Cant find device"})
     }
     
 }

@@ -10,11 +10,11 @@ var humidity = require("./src/fetchfunction/fetchHumidity")
 var cors = require('cors');
 
 var indexRouter = require('./routes/index');
-var passport = require('passport')
+
 
 var app = express();
 var session    = require('express-session')
-var passport = require('passport')
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -25,9 +25,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
-require("./src/PassportConfig")
+
 app.use(cors());
 app.use('/', indexRouter);
 
