@@ -23,7 +23,7 @@ router.get('/api/v1/device/wind/moyenne',function(req,res)
 {
   DeviceController.moyenneWindForDevice(req,res)
 })
-router.get('/api/v1/device', function(req,res)
+router.get('/api/v1/device/position', function(req,res)
 {
   DeviceController.getDeviceInfo(req,res)
 })
