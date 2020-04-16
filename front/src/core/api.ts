@@ -9,4 +9,9 @@ export default class Api {
     static getDeviceInfos(deviceId: number) {
         return axios.get(this.apiUrl + "?device=device_"+deviceId);
     }
+
+    static getAvgData(deviceId: number, dataType: string) {
+        return axios.get(this.apiUrl + "/"+dataType+"/moyenne?device=device_"+deviceId);
+
+    }
 }

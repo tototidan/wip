@@ -1,6 +1,6 @@
 <template>
     <div class="mt-12">
-        <v-card class="mt-12 ml-3 pa-3">
+        <v-card class="mt-12 mx-3 pa-3">
             <span class="title">Status</span>
             <v-btn class="ml-3" @click="getDevicesStatus">
                 <v-icon>mdi-refresh</v-icon>

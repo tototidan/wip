@@ -19,6 +19,11 @@ Vue.use(VueRouter)
       path: '/map',
       name: 'Map',
       component: () => import('../views/Map.vue')
+    },
+    {
+      path: '/dashboard',
+      name: 'Dashboard',
+      component: () => import('../views/Dashboard.vue')
     }
 ];
 

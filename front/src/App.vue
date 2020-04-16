@@ -32,6 +32,9 @@
         <router-link class="text--white" to="/map">
           <span class="ml-3 white--text">Map</span>
         </router-link>
+        <router-link class="text--white" to="/dashboard">
+          <span class="ml-3 white--text">Dashboard</span>
+        </router-link>
       </div>
 
     </v-app-bar>

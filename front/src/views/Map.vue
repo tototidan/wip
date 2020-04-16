@@ -5,13 +5,17 @@
                :max-bounds="maxBounds"
                :min-zoom="maxZoom">
             <l-tile-layer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"></l-tile-layer>
-            <l-marker v-for="device in devices" :key="device" :lat-lng="device.zone"></l-marker>
+            <l-marker v-for="device in devices" :key="device" :lat-lng="device.zone">
+                <l-popup>
+                    Device: {{device.name}}
+                </l-popup>
+            </l-marker>
         </l-map>
     </v-row>
 </template>
 
 <script>
-    import {LMap, LTileLayer, LMarker} from "vue2-leaflet";
+    import {LMap, LTileLayer, LMarker, LPopup} from "vue2-leaflet";
     import api from "../core/api";
 
     export default {
@@ -19,14 +23,15 @@
         components: {
             LMap,
             LTileLayer,
-            LMarker
+            LMarker,
+            LPopup
         },
         data() {
             return {
-                zoom: 6,
-                center: [46.79491, 3.03207],
-                maxBounds: [[29.228890, -56.777343], [62.103882, 45.300781]],
-                maxZoom: 5,
+                zoom: 10,
+                center: [44.7333, -0.3667],
+                maxBounds: [[43.228890, -5.777343], [46.103882, 5.300781]],
+                maxZoom: 9,
                 devices: null,
             }
         },
