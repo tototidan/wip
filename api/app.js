@@ -7,6 +7,8 @@ var db = require("./models/index").sequelize
 var temperature = require("./src/fetchfunction/fetchTemperature")
 var wind = require("./src/fetchfunction/fetchWind")
 var humidity = require("./src/fetchfunction/fetchHumidity")
+var cors = require('cors');
+
 var indexRouter = require('./routes/index');
 var passport = require('passport')
 
@@ -26,6 +28,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 require("./src/PassportConfig")
+app.use(cors());
+app.use('/', indexRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

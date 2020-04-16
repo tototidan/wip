@@ -1,0 +1,28 @@
+version: "3.7"
+services:
+        mysql:
+                image: mysql:latest
+                environment:
+                        MYSQL_DATABASE: 'projet'
+                        # So you don't have to use root, but you can if you like
+                        MYSQL_USER: 'root'
+                        # You can use whatever password you like
+                        MYSQL_PASSWORD: 'root'
+                        # Password for root access
+                        MYSQL_ROOT_PASSWORD: 'root'
+                ports:
+                # <Port exposed> : < MySQL Port running inside container>
+                        - '3306:3306'
+                expose:
+                # Opens port 3306 on the container
+                        - '3306'
+        api:
+                image: wip-api:latest
+                depends_on: 
+                        - mysql
+                ports:
+                        # <Port exposed> : < MySQL Port running inside container>
+                        - '4000:4000'
+                expose:
+                # Opens port 3306 on the container
+                        - '4000'

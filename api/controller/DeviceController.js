@@ -80,6 +80,21 @@ async function getDeviceStatus(req,res)
     
 }
 
+async function getDeviceInfo(req,res)
+{
+    if(req.query.device)
+    {
+        let device = await utils.getDevice(req.query.device)
+        if(device)
+        {
+            let order = req.query.order == "DESC" ? req.query.order : "ASC";
+            let limit = Number.isInteger(req.query.limit) ? req.query.limit : 20
+            console.log(device)
+        }
+    }
+    
+}
+
 
 module.exports =  {
     moyenneTemperatureForDevice,
