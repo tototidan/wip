@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var DeviceController = require("../controller/DeviceController")
+var passport = require('passport')
 
 
 /* GET home page. */
@@ -31,6 +32,7 @@ router.get('/api/v1/device/state', function(req,res)
 {
   DeviceController.getDeviceStatus(req,res)
 })
+
 
 module.exports = router;
 

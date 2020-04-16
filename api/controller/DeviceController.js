@@ -4,6 +4,7 @@ var Humidity = require("../models").humidity
 var Wind = require("../models").wind
 var sequelize = require("sequelize").Sequelize
 const axios = require('axios');
+var passport = require('passport')
 
 async function moyenneTemperatureForDevice(req,res)
 {
