@@ -80,7 +80,7 @@ async function getDeviceStatus(req,res)
     
 }
 
-async function getDeviceInfo(req,res)
+async function getDeviceInfoAll(req,res)
 {
     if(req.query.device)
     {
@@ -112,6 +112,7 @@ module.exports =  {
     moyenneWindForDevice,
     moyenneHumidityForDevice,
     getDeviceInfo,
-    getDeviceStatus
+    getDeviceStatus,
+    getDeviceInfoAll
 
 }

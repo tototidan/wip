@@ -35,7 +35,7 @@ router.get('/api/v1/device/state', function(req,res)
 
 router.get('/api/v1/device', function(req,res)
 {
-  DeviceController.getDeviceStatus(req,res)
+  DeviceController.getDeviceInfoAll(req,res)
 })
 
 
