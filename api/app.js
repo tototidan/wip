@@ -8,7 +8,6 @@ var temperature = require("./src/fetchfunction/fetchTemperature")
 var wind = require("./src/fetchfunction/fetchWind")
 var humidity = require("./src/fetchfunction/fetchHumidity")
 var cors = require('cors');
-
 var indexRouter = require('./routes/index');
 
 

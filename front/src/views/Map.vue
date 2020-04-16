@@ -7,7 +7,10 @@
             <l-tile-layer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"></l-tile-layer>
             <l-marker v-for="device in devices" :key="device" :lat-lng="device.zone">
                 <l-popup>
-                    Device: {{device.name}}
+                    Device: {{device.name}} <br>
+                    Temp: {{device.temp}} C° <br>
+                    Wind: {{device.wind}} km/h <br>
+                    Hum: {{device.hum}} g/m3 <br>
                 </l-popup>
             </l-marker>
         </l-map>
@@ -42,9 +45,16 @@
             async getDevicesInfos() {
                 this.devices = [];
                 for (let i = 1; i<8; i++) {
-                    const response = await api.getDeviceInfos(i);
-                    response.data.zone = response.data.zone.split(',');
-                    this.devices.push(response.data);
+                    let response = await api.getDeviceInfos(i);
+                    const device = {zone: [], name: "", wind: "", temp: "", hum: ""};
+                    device.zone = response.data.zone.split(',');
+                    device.name = response.data.name;
+                    response = await api.getDatasFromDevice(i);
+                    const data = response.data;
+                    device.wind = JSON.parse(data.wind)[0].wind;
+                    device.temp = JSON.parse(data.temperature)[0].temperature;
+                    device.hum = JSON.parse(data.humidity)[0].humidity;
+                    this.devices.push(device);
                 }
                 console.log(this.devices);
             }
