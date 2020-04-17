@@ -21,8 +21,18 @@ services:
                 depends_on: 
                         - mysql
                 ports:
-                        # <Port exposed> : < MySQL Port running inside container>
+                        # <Port exposed> : <Port running inside container>
                         - '4000:4000'
                 expose:
-                # Opens port 3306 on the container
+                # Opens port 4000 on the container
                         - '4000'
+        front:
+                image: wip-front:latest
+                depends_on: 
+                        - api
+                ports:
+                        # <Port exposed> : <Port running inside container>
+                        - '80:8080'
+                expose:
+                # Opens port 8080 on the container
+                        - '8080'
